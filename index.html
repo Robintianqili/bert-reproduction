@@ -98,7 +98,7 @@ body.idle{cursor:none}
 </div>
 <div style="display:flex;flex-direction:column;gap:2px">
 <p style="font-size:26px;font-weight:600;line-height:32px;color:#15202B">Fine-tuning: redone on 7 of the 8 GLUE tasks</p>
-<p style="font-size:24px;line-height:30px;color:#45525E">Batch 32 and 3 epochs as in the paper.<br>lr <span style="color:#1F5BC4">2e-5</span>, one of its 4 candidates (all 4 run on MRPC, RTE)</p>
+<p style="font-size:24px;line-height:30px;color:#45525E">Batch 32 and 3 epochs as in the paper.<br>lr <span style="color:#1F5BC4">2e-5</span>, one of its 4 candidates (all 4 run on MRPC, RTE)<br>QQP skipped: the paper gives only its test score</p>
 </div>
 <div style="display:flex;gap:28px;border-top:1px solid #D5DCE3;padding:12px 0 0 0">
 <div style="display:flex;flex-direction:column">
@@ -235,26 +235,71 @@ body.idle{cursor:none}
 <h2 style="font-family:'IBM Plex Sans Condensed', 'IBM Plex Sans', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-0.5px;color:#15202B">BERT’s pre-training claims mostly hold</h2>
 </div>
 
-<div style="display:flex;gap:32px;height:652px">
-<div style="flex:1;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;gap:32px">
+<div style="width:533px;display:flex;flex-direction:column;gap:12px">
 <h3 style="font-size:32px;font-weight:600;line-height:38px;color:#15202B">The paper’s own examples</h3>
-<p style="padding-top:312px;font-size:26px;font-weight:600;line-height:32px;color:#15202B"><span style="color:#1E7B4F">✓</span> BERT picks “store”; NSP fits the labels</p>
-<p style="font-size:24px;line-height:30px;color:#45525E">GPT-1, given only the left side, picks “door”. NSP numbers are our P(IsNext).</p>
-<p style="font-size:24px;line-height:30px;color:#5F6B76"><b>Paper</b>: the two NSP pairs and their labels (App. A.1); the masked sentence is built from them. <b>Ours</b>: every number, released models.</p>
+<div style="flex:none;height:300px"></div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;gap:12px;align-items:start;min-height:60px">
+<p style="width:100px;font-size:24px;font-weight:600;line-height:30px;letter-spacing:0;text-transform:uppercase;text-align:center;background:#F6E3D0;color:#B35F12;border-radius:6px">Paper</p>
+<p style="flex:1;font-size:24px;line-height:30px;color:#45525E">App. A.1: two NSP pairs, labelled IsNext / NotNext; no model outputs</p>
 </div>
-<div style="flex:1;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;gap:12px;align-items:start;min-height:60px">
+<p style="width:100px;font-size:24px;font-weight:600;line-height:30px;letter-spacing:0;text-transform:uppercase;text-align:center;background:#DCE7FA;color:#1F5BC4;border-radius:6px">Ours</p>
+<p style="flex:1;font-size:24px;line-height:30px;color:#45525E">Released BERT’s NSP on both pairs;<br>BERT, GPT-1 on a masked sentence</p>
+</div>
+<div style="display:flex;gap:12px;align-items:start">
+<p style="width:100px;font-size:24px;font-weight:600;line-height:30px;letter-spacing:0;text-transform:uppercase;text-align:center;background:#E6EAEE;color:#15202B;border-radius:6px">Result</p>
+<div style="flex:1;display:flex;flex-direction:column">
+<p style="font-size:24px;font-weight:600;line-height:30px;color:#15202B"><span style="color:#1E7B4F">✔︎</span> Released BERT acts as described</p>
+<p style="font-size:24px;line-height:30px;color:#5F6B76">NSP 1.000 / 0.000 fits both labels;<br>BERT says “store”, GPT-1 “door”</p>
+</div>
+</div>
+</div>
+</div>
+<div style="width:533px;display:flex;flex-direction:column;gap:12px">
 <h3 style="font-size:32px;font-weight:600;line-height:38px;color:#15202B">Ablation, small scale (Table 5)</h3>
-<p style="padding-top:312px;font-size:26px;font-weight:600;line-height:32px;color:#15202B"><span style="color:#1E7B4F">✓</span> Direction holds · <span style="color:#B3261E">✗</span> which task drops</p>
-<p style="font-size:24px;line-height:30px;color:#45525E"><b>Holds</b>: in both, no NSP hurts QNLI; left-to-right hurts a pair task but spares SST-2.</p>
-<p style="font-size:24px;line-height:30px;color:#45525E"><b>Differs</b>: the paper’s big left-to-right drop is MRPC (−9.0); ours is QNLI (−11.2).</p>
-<p style="font-size:24px;line-height:30px;color:#5F6B76"><b>Paper</b>: BERT-base, 3.3B words. <b>Ours</b>: 4-layer, 11M-param BERTs, WikiText-103 (109M tokens).</p>
+<div style="flex:none;height:300px"></div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;gap:12px;align-items:start;min-height:60px">
+<p style="width:100px;font-size:24px;font-weight:600;line-height:30px;letter-spacing:0;text-transform:uppercase;text-align:center;background:#F6E3D0;color:#B35F12;border-radius:6px">Paper</p>
+<p style="flex:1;font-size:24px;line-height:30px;color:#45525E">BERT-base with / without NSP, and<br>left-to-right; 3.3B words; 5 dev tasks</p>
 </div>
-<div style="flex:1;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;gap:12px;align-items:start;min-height:60px">
+<p style="width:100px;font-size:24px;font-weight:600;line-height:30px;letter-spacing:0;text-transform:uppercase;text-align:center;background:#DCE7FA;color:#1F5BC4;border-radius:6px">Ours</p>
+<p style="flex:1;font-size:24px;line-height:30px;color:#45525E">Same 3 ways, 4 layers, 11M params;<br>109M tokens; QNLI, MRPC, SST-2</p>
+</div>
+<div style="display:flex;gap:12px;align-items:start">
+<p style="width:100px;font-size:24px;font-weight:600;line-height:30px;letter-spacing:0;text-transform:uppercase;text-align:center;background:#E6EAEE;color:#15202B;border-radius:6px">Result</p>
+<div style="flex:1;display:flex;flex-direction:column">
+<p style="font-size:24px;font-weight:600;line-height:30px;color:#15202B"><span style="color:#1E7B4F">✔︎</span> Same direction: a pair task drops</p>
+<p style="font-size:24px;font-weight:600;line-height:30px;color:#15202B"><span style="color:#B3261E">✘︎</span> Left-to-right: biggest drop differs</p>
+<p style="font-size:24px;line-height:30px;color:#5F6B76">paper MRPC <span style="color:#B35F12">−9.0</span>, ours QNLI <span style="color:#1F5BC4">−11.2</span><br>(of the 3 tasks we ran)</p>
+</div>
+</div>
+</div>
+</div>
+<div style="width:533px;display:flex;flex-direction:column;gap:12px">
 <h3 style="font-size:32px;font-weight:600;line-height:38px;color:#15202B">BERT’s lead over GPT-1</h3>
-<p style="padding-top:312px;font-size:26px;font-weight:600;line-height:32px;color:#15202B"><span style="color:#1E7B4F">✓</span> BERT leads on all 6, paper and ours</p>
-<p style="font-size:24px;line-height:30px;color:#45525E"><b>Paper</b>: Table 1, test sets. <b>Ours</b>: dev sets, both released models through the same loop.</p>
-<p style="font-size:24px;line-height:30px;color:#45525E"><b><span style="color:#B35F12">Caveat</span></b>: GPT-1 read less text (BooksCorpus only).</p>
-<p style="font-size:24px;line-height:30px;color:#5F6B76">MRPC: F1 for both<br>*GPT-1 CoLA: mean of 4 of 5 seeds</p>
+<div style="flex:none;height:300px"></div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;gap:12px;align-items:start;min-height:60px">
+<p style="width:100px;font-size:24px;font-weight:600;line-height:30px;letter-spacing:0;text-transform:uppercase;text-align:center;background:#F6E3D0;color:#B35F12;border-radius:6px">Paper</p>
+<p style="flex:1;font-size:24px;line-height:30px;color:#45525E">Table 1, GLUE test server: BERT-base beats GPT on all 8 tasks</p>
+</div>
+<div style="display:flex;gap:12px;align-items:start;min-height:60px">
+<p style="width:100px;font-size:24px;font-weight:600;line-height:30px;letter-spacing:0;text-transform:uppercase;text-align:center;background:#DCE7FA;color:#1F5BC4;border-radius:6px">Ours</p>
+<p style="flex:1;font-size:24px;line-height:30px;color:#45525E">Released BERT-base, GPT-1 (own lr);<br>same fine-tuning loop; 6 dev sets</p>
+</div>
+<div style="display:flex;gap:12px;align-items:start">
+<p style="width:100px;font-size:24px;font-weight:600;line-height:30px;letter-spacing:0;text-transform:uppercase;text-align:center;background:#E6EAEE;color:#15202B;border-radius:6px">Result</p>
+<div style="flex:1;display:flex;flex-direction:column">
+<p style="font-size:24px;font-weight:600;line-height:30px;color:#15202B"><span style="color:#1E7B4F">✔︎</span> BERT leads on all 6</p>
+<p style="font-size:24px;line-height:30px;color:#5F6B76">Smaller on 5 of 6 (RTE <span style="color:#1F5BC4">+2.6</span> vs <span style="color:#B35F12">+10.4</span>);<br>GPT-1 also read less text</p>
+</div>
+</div>
+</div>
+<p style="font-size:24px;line-height:30px;color:#5F6B76">MRPC: F1 for both · *GPT-1 CoLA: 4 of 5 seeds</p>
 </div>
 </div>
 <div class="emb" data-k="0" style="position:absolute;left:128px;top:318px;width:533px;height:300px"></div>
@@ -273,80 +318,66 @@ body.idle{cursor:none}
 <div style="display:flex;gap:32px;height:652px">
 <div style="flex:1;display:flex;flex-direction:column;gap:12px">
 <h3 style="font-size:32px;font-weight:600;line-height:38px;color:#15202B">Frozen features vs fine-tuning</h3>
-<p style="padding-top:312px;font-size:26px;font-weight:600;line-height:32px;color:#15202B"><span style="color:#B3261E">✗</span> Not reproduced on SST-2: 6.2 behind</p>
-<p style="font-size:24px;line-height:30px;color:#45525E"><b>Paper, Sec. 5.3:</b> on NER, frozen features are almost as good as fine-tuning</p>
-<div style="display:flex;flex-direction:column">
-<div style="display:flex;padding:0 8px;border-bottom:1px solid #D5DCE3">
-<p style="width:200px;font-size:24px;line-height:29px;font-weight:600;color:#5F6B76">BERT-base, dev</p>
-<p style="width:92px;font-size:24px;line-height:29px;font-weight:600;color:#5F6B76">Frozen</p>
-<p style="width:136px;font-size:24px;line-height:29px;font-weight:600;color:#5F6B76">Fine-tuned</p>
-<p style="flex:1;font-size:24px;line-height:29px;font-weight:600;color:#5F6B76">Gap</p>
+<div style="flex:none;height:300px"></div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;gap:12px;align-items:start;min-height:60px">
+<p style="width:100px;font-size:24px;font-weight:600;line-height:30px;letter-spacing:0;text-transform:uppercase;text-align:center;background:#F6E3D0;color:#B35F12;border-radius:6px">Paper</p>
+<p style="flex:1;font-size:24px;line-height:30px;color:#45525E">Sec. 5.3: frozen BERT almost matches fine-tuning: NER F1 96.1 vs 96.4</p>
 </div>
-<div style="display:flex;padding:0 8px">
-<p style="width:200px;font-size:24px;line-height:29px;color:#45525E"><span style="color:#B35F12">Paper</span> · NER F1</p>
-<p style="width:92px;font-size:24px;line-height:29px;font-variant-numeric:tabular-nums;color:#B35F12">96.1</p>
-<p style="width:136px;font-size:24px;line-height:29px;font-variant-numeric:tabular-nums;color:#B35F12">96.4</p>
-<p style="flex:1;font-size:24px;line-height:29px;font-variant-numeric:tabular-nums;color:#B35F12">−0.3</p>
+<div style="display:flex;gap:12px;align-items:start;min-height:60px">
+<p style="width:100px;font-size:24px;font-weight:600;line-height:30px;letter-spacing:0;text-transform:uppercase;text-align:center;background:#DCE7FA;color:#1F5BC4;border-radius:6px">Ours</p>
+<p style="flex:1;font-size:24px;line-height:30px;color:#45525E">SST-2: logistic regression on frozen layers vs full fine-tuning</p>
 </div>
-<div style="display:flex;padding:0 8px;background:#DCE7FA">
-<p style="width:200px;font-size:24px;line-height:29px;color:#45525E"><span style="color:#1F5BC4">Ours</span> · SST-2 acc</p>
-<p style="width:92px;font-size:24px;line-height:29px;font-variant-numeric:tabular-nums;color:#1F5BC4">86.8</p>
-<p style="width:136px;font-size:24px;line-height:29px;font-variant-numeric:tabular-nums;color:#1F5BC4">93.0</p>
-<p style="flex:1;font-size:24px;line-height:29px;font-weight:600;font-variant-numeric:tabular-nums;color:#1F5BC4">−6.2</p>
+<div style="display:flex;gap:12px;align-items:start;min-height:120px">
+<p style="width:100px;font-size:24px;font-weight:600;line-height:30px;letter-spacing:0;text-transform:uppercase;text-align:center;background:#E6EAEE;color:#15202B;border-radius:6px">Result</p>
+<div style="flex:1;display:flex;flex-direction:column">
+<p style="font-size:24px;font-weight:600;line-height:30px;color:#15202B"><span style="color:#B3261E">✘︎</span> Not on SST-2: gap 6.2, not 0.3</p>
+<p style="font-size:24px;line-height:30px;color:#5F6B76">Sentence task, not NER; simpler classifier, fit on 20k of 67k sentences</p>
 </div>
 </div>
-<p style="font-size:24px;line-height:30px;color:#5F6B76">Different task; our feature classifier saw only 20,000 sentences</p>
+</div>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:12px">
 <h3 style="font-size:32px;font-weight:600;line-height:38px;color:#15202B">Learning-rate search</h3>
-<p style="padding-top:312px;font-size:26px;font-weight:600;line-height:32px;color:#15202B"><span style="color:#1E7B4F">✓</span> Search matters: +2.0 MRPC, +1.8 RTE</p>
-<p style="font-size:24px;line-height:30px;color:#45525E"><b>Paper, Sec. 4.1:</b> best of 4 rates on dev</p>
-<div style="display:flex;flex-direction:column">
-<div style="display:flex;padding:0 8px;border-bottom:1px solid #D5DCE3">
-<p style="width:250px;font-size:24px;line-height:29px;font-weight:600;color:#5F6B76">BERT-base, dev acc</p>
-<p style="width:110px;font-size:24px;line-height:29px;font-weight:600;color:#5F6B76">MRPC</p>
-<p style="flex:1;font-size:24px;line-height:29px;font-weight:600;color:#5F6B76">RTE</p>
+<div style="flex:none;height:300px"></div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;gap:12px;align-items:start;min-height:60px">
+<p style="width:100px;font-size:24px;font-weight:600;line-height:30px;letter-spacing:0;text-transform:uppercase;text-align:center;background:#F6E3D0;color:#B35F12;border-radius:6px">Paper</p>
+<p style="flex:1;font-size:24px;line-height:30px;color:#45525E">Sec. 4.1: picks the best of 4 learning rates on dev, for each task</p>
 </div>
-<div style="display:flex;padding:0 8px">
-<p style="width:250px;font-size:24px;line-height:29px;color:#45525E"><span style="color:#1F5BC4">Ours</span>, lr 2e-5</p>
-<p style="width:110px;font-size:24px;line-height:29px;font-variant-numeric:tabular-nums;color:#1F5BC4">84.1</p>
-<p style="flex:1;font-size:24px;line-height:29px;font-variant-numeric:tabular-nums;color:#1F5BC4">63.0</p>
+<div style="display:flex;gap:12px;align-items:start;min-height:60px">
+<p style="width:100px;font-size:24px;font-weight:600;line-height:30px;letter-spacing:0;text-transform:uppercase;text-align:center;background:#DCE7FA;color:#1F5BC4;border-radius:6px">Ours</p>
+<p style="flex:1;font-size:24px;line-height:30px;color:#45525E">All 4 rates on MRPC and RTE, 5 seeds each, vs our fixed 2e-5</p>
 </div>
-<div style="display:flex;padding:0 8px;background:#DCE7FA">
-<p style="width:250px;font-size:24px;line-height:29px;color:#45525E"><span style="color:#1F5BC4">Ours</span>, best of 4 (4e-5)</p>
-<p style="width:110px;font-size:24px;line-height:29px;font-weight:600;font-variant-numeric:tabular-nums;color:#1F5BC4">86.1</p>
-<p style="flex:1;font-size:24px;line-height:29px;font-weight:600;font-variant-numeric:tabular-nums;color:#1F5BC4">64.8</p>
-</div>
-<div style="display:flex;padding:0 8px">
-<p style="width:250px;font-size:24px;line-height:29px;color:#45525E"><span style="color:#B35F12">Paper</span></p>
-<p style="width:110px;font-size:24px;line-height:29px;font-variant-numeric:tabular-nums;color:#B35F12">86.7</p>
-<p style="flex:1;font-size:24px;line-height:29px;font-variant-numeric:tabular-nums;color:#B35F12">66.4 test</p>
+<div style="display:flex;gap:12px;align-items:start;min-height:120px">
+<p style="width:100px;font-size:24px;font-weight:600;line-height:30px;letter-spacing:0;text-transform:uppercase;text-align:center;background:#E6EAEE;color:#15202B;border-radius:6px">Result</p>
+<div style="flex:1;display:flex;flex-direction:column">
+<p style="font-size:24px;font-weight:600;line-height:30px;color:#15202B"><span style="color:#1E7B4F">✔︎</span> Search adds +2.0 MRPC, +1.8 RTE</p>
+<p style="font-size:24px;line-height:30px;color:#5F6B76">RTE gain is within seed noise; we pick and score on the same dev set</p>
 </div>
 </div>
-<p style="font-size:24px;line-height:30px;color:#5F6B76">Picked on the same dev set, so slightly optimistic; RTE’s +1.8 is within seed noise</p>
+</div>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:12px">
 <h3 style="font-size:32px;font-weight:600;line-height:38px;color:#15202B">BERT-Large stability</h3>
-<p style="padding-top:312px;font-size:26px;font-weight:600;line-height:32px;color:#15202B"><span style="color:#1E7B4F">✓</span> Reproduced: 4 of 6 runs collapse</p>
-<p style="font-size:24px;line-height:30px;color:#45525E"><b>Paper, Sec. 4.1:</b> BERT-Large is “sometimes unstable on small datasets”</p>
-<div style="display:flex;flex-direction:column">
-<div style="display:flex;padding:0 8px;border-bottom:1px solid #D5DCE3">
-<p style="width:265px;font-size:24px;line-height:29px;font-weight:600;color:#5F6B76"><span style="color:#1F5BC4">Ours</span>, RTE dev, 6 seeds</p>
-<p style="width:135px;font-size:24px;line-height:29px;font-weight:600;color:#5F6B76">Collapsed</p>
-<p style="flex:1;font-size:24px;line-height:29px;font-weight:600;color:#5F6B76">Mean</p>
+<div style="flex:none;height:300px"></div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;gap:12px;align-items:start;min-height:60px">
+<p style="width:100px;font-size:24px;font-weight:600;line-height:30px;letter-spacing:0;text-transform:uppercase;text-align:center;background:#F6E3D0;color:#B35F12;border-radius:6px">Paper</p>
+<p style="flex:1;font-size:24px;line-height:30px;color:#45525E">Sec. 4.1: “sometimes unstable on small datasets”; handled by restarts</p>
 </div>
-<div style="display:flex;padding:0 8px">
-<p style="width:265px;font-size:24px;line-height:29px;color:#45525E">Original optimizer</p>
-<p style="width:135px;font-size:24px;line-height:29px;font-variant-numeric:tabular-nums;color:#15202B">4 of 6</p>
-<p style="flex:1;font-size:24px;line-height:29px;font-variant-numeric:tabular-nums;color:#15202B">54.3</p>
+<div style="display:flex;gap:12px;align-items:start;min-height:60px">
+<p style="width:100px;font-size:24px;font-weight:600;line-height:30px;letter-spacing:0;text-transform:uppercase;text-align:center;background:#DCE7FA;color:#1F5BC4;border-radius:6px">Ours</p>
+<p style="flex:1;font-size:24px;line-height:30px;color:#45525E">RTE, 6 seeds: original BERT optimizer<br>vs Adam with bias correction</p>
 </div>
-<div style="display:flex;padding:0 8px;background:#DCE7FA">
-<p style="width:265px;font-size:24px;line-height:29px;color:#45525E">+ bias correction</p>
-<p style="width:135px;font-size:24px;line-height:29px;font-weight:600;font-variant-numeric:tabular-nums;color:#1F5BC4">0 of 6</p>
-<p style="flex:1;font-size:24px;line-height:29px;font-weight:600;font-variant-numeric:tabular-nums;color:#1F5BC4">70.2</p>
+<div style="display:flex;gap:12px;align-items:start;min-height:120px">
+<p style="width:100px;font-size:24px;font-weight:600;line-height:30px;letter-spacing:0;text-transform:uppercase;text-align:center;background:#E6EAEE;color:#15202B;border-radius:6px">Result</p>
+<div style="flex:1;display:flex;flex-direction:column">
+<p style="font-size:24px;font-weight:600;line-height:30px;color:#15202B"><span style="color:#1E7B4F">✔︎</span> Reproduced: 4 of 6 collapse</p>
+<p style="font-size:24px;line-height:30px;color:#5F6B76">With bias correction (not in the paper): 0 of 6 collapse</p>
 </div>
 </div>
-<p style="font-size:24px;line-height:30px;color:#5F6B76">Adding Adam bias correction removes it; the paper never mentions it</p>
+</div>
 </div>
 </div>
 <div class="emb" data-k="0" style="position:absolute;left:128px;top:318px;width:533px;height:300px"></div>
@@ -362,22 +393,36 @@ body.idle{cursor:none}
 <h2 style="font-family:'IBM Plex Sans Condensed', 'IBM Plex Sans', Arial, sans-serif;font-size:64px;font-weight:600;line-height:1.1;letter-spacing:-0.5px;color:#15202B">Training on MNLI first lifts RTE by 14 points</h2>
 </div>
 
-<div style="width:600px;display:flex;flex-direction:column;gap:36px">
-<div style="display:flex;flex-direction:column;gap:12px">
-<h3 style="font-size:32px;font-weight:600;line-height:1.2;color:#15202B">Why it can work</h3>
-<p style="font-size:26px;line-height:1.3;color:#45525E">RTE is tiny: <b>2,490</b> training pairs, only <b>234</b> updates.</p>
-<p style="font-size:24px;line-height:1.3;color:#45525E"><b><span style="color:#15202B">MNLI</span></b> = Multi-Genre Natural Language Inference: <b>392,702</b> pairs from fiction, government, phone calls…</p>
-<p style="font-size:26px;line-height:1.3;color:#45525E">It asks almost the same question (entailment, neutral or contradiction?) with <b>158×</b> more pairs.</p>
-<p style="font-size:26px;line-height:1.3;color:#45525E">Footnote 14 saw multi-task MNLI help RTE (no numbers); we go in sequence.</p>
+<div style="width:616px;display:flex;flex-direction:column;gap:28px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<h3 style="font-size:32px;font-weight:600;line-height:38px;color:#15202B">Two tasks, almost the same question</h3>
+<div style="display:flex;flex-direction:column;gap:14px">
+<p style="font-size:24px;line-height:30px;color:#45525E"><b><span style="color:#15202B">RTE · Recognizing Textual Entailment</span></b>: does A imply B? 2 classes, only <b>2,490</b> training pairs (234 updates).</p>
+<p style="font-size:24px;line-height:30px;color:#45525E"><b><span style="color:#15202B">MNLI · Multi-Genre Natural Language Inference</span></b>: the same kind of question with 3 answers (entailment / neutral / contradiction), <b>392,702</b> pairs, <b>158×</b> more.</p>
 </div>
-<div style="display:flex;flex-direction:column;gap:12px">
-<h3 style="font-size:32px;font-weight:600;line-height:1.2;color:#15202B">How much</h3>
-<div style="display:flex;align-items:center;gap:24px">
-<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:108px;font-weight:600;line-height:1;letter-spacing:-6px;white-space:nowrap;color:#B35F12">+14.3</p>
-<p style="font-size:26px;line-height:1.3;color:#45525E">points of RTE dev accuracy</p>
 </div>
-<p style="font-size:26px;line-height:1.3;color:#15202B"><b><span style="color:#1F5BC4">63.0 ± 2.7</span> → <span style="color:#B35F12">77.3 ± 0.9</span></b>, mean of 5 seeds; higher on all 5.</p>
-<p style="font-size:24px;line-height:1.3;color:#5F6B76">Cost: one 36-minute MNLI fine-tune for all 5 seeds.</p>
+<div style="display:flex;flex-direction:column;gap:8px">
+<h3 style="font-size:32px;font-weight:600;line-height:38px;color:#15202B">Footnote 14 vs our test</h3>
+<div style="display:flex;gap:14px;align-items:start">
+<p style="width:96px;flex:none;font-size:24px;font-weight:600;line-height:30px;letter-spacing:1px;text-align:center;border-radius:6px;background:#F6E3D0;color:#B35F12">PAPER</p>
+<p style="flex:1;font-size:24px;line-height:30px;color:#45525E">Only single-task results; footnote 14: <span style="color:#15202B">“substantial improvements on RTE from multi&#8209;task training with MNLI”</span>. <b><span style="color:#15202B">No numbers.</span></b></p>
+</div>
+<div style="display:flex;gap:14px;align-items:start">
+<p style="width:96px;flex:none;font-size:24px;font-weight:600;line-height:30px;letter-spacing:1px;text-align:center;border-radius:6px;background:#DCE7FA;color:#1F5BC4">OURS</p>
+<p style="flex:1;font-size:24px;line-height:30px;color:#45525E">MNLI first, then RTE: <b><span style="color:#15202B">in sequence</span></b>, not together. Same RTE settings, 5 paired seeds.</p>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<h3 style="font-size:32px;font-weight:600;line-height:38px;color:#15202B">How much: RTE dev accuracy</h3>
+<div style="display:flex;align-items:center;gap:20px">
+<p style="font-family:'IBM Plex Mono', 'Courier New', monospace;font-size:84px;font-weight:600;line-height:1;letter-spacing:-2px;white-space:nowrap;color:#15202B">+14.3</p>
+<div style="display:flex;flex-direction:column">
+<p style="font-size:26px;font-weight:600;line-height:32px;white-space:nowrap;color:#15202B"><span style="color:#1F5BC4">63.0 ± 2.7</span> → <span style="color:#B35F12">77.3 ± 0.9</span></p>
+<p style="font-size:24px;line-height:30px;color:#45525E"><span style="color:#5F6B76">ours:</span> <span style="color:#1F5BC4">direct</span> → <span style="color:#B35F12">MNLI first</span></p>
+<p style="font-size:24px;line-height:30px;color:#45525E">higher on all 5 seeds</p>
+</div>
+</div>
+<p style="font-size:24px;line-height:30px;color:#5F6B76">Cost: one 36-minute MNLI fine-tune.</p>
 </div>
 </div>
 
